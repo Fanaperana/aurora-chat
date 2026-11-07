@@ -1,0 +1,6 @@
+{
+  "name": "aurora-chat",
+  "owner": { "name": "Fanaperana" },
+  "description": "Editor-style theme for the Claude Code desktop app",
+  "plugins": [{ "name": "aurora-chat", "source": "./" }]
+}

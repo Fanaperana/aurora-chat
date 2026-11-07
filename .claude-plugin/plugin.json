@@ -1,0 +1,11 @@
+{
+  "name": "aurora-chat",
+  "version": "0.3.0",
+  "description": "Editor-style theme for the Claude Code desktop app: custom markdown rendering, a calm IDE palette and a status bar above the prompt",
+  "author": { "name": "Fanaperana", "url": "https://github.com/Fanaperana" },
+  "homepage": "https://github.com/Fanaperana/aurora-chat",
+  "repository": "https://github.com/Fanaperana/aurora-chat",
+  "license": "MIT",
+  "keywords": ["theme", "markdown", "statusbar", "desktop", "ui"],
+  "types": "./types/index.d.ts"
+}
