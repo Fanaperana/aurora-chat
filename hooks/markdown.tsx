@@ -326,7 +326,7 @@ function block(el: Els, b: Block): any {
                 ? C.orange
                 : BULLET_COLORS[depth]
             return (
-              <Box flexDirection="row" gap="sm" paddingLeft={item.depth * 2}>
+              <Box flexDirection="row" gap="sm" alignItems="flex-start" paddingLeft={item.depth * 2}>
                 <Text mono weight="bold" color={markerColor}>
                   {marker}
                 </Text>
@@ -362,7 +362,7 @@ function block(el: Els, b: Block): any {
     }
     case 'quote':
       return (
-        <Box flexDirection="row" gap="sm" paddingY="xs">
+        <Box flexDirection="row" gap="sm" alignItems="flex-start" paddingY="xs">
           <Text color={C.purple} weight="bold">
             ▌
           </Text>
