@@ -31,6 +31,7 @@ test('a reply full of markdown draws on desktop without being refused', async ($
   on('session.start', (_, e) => ({ cwd: e.cwd }))
   on('ui.backdrop', () => ({ value: { isDrawn: true, requestId: 'backdrop' } }))
   on('session.cwd', () => ({ value: 'E:/CODE' }))
+  on('command.register', () => ({ value: { command: 'statusbar' } }))
   on('ui.render', ($, e) => {
     const { Text } = $.ui.resolve(e)
     return <Text>engine</Text>
@@ -48,7 +49,8 @@ test('a reply full of markdown draws on desktop without being refused', async ($
 
   expect(await ui.find({ type: 'Text', text: /^engine$/ })).toBeUndefined()
   expect(await ui.find({ type: 'Text', text: /Sub section/ })).toBeDefined()
-  expect(await ui.find({ type: 'Text', text: /alpha/ })).toBeDefined()
+  // Tables go to the app's own renderer, inside a Markdown element.
+  expect(await ui.find({ type: 'Markdown', text: /alpha/ })).toBeDefined()
   await ui.unmount()
 })
 

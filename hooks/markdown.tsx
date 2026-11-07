@@ -259,12 +259,6 @@ function rule(el: Els) {
   )
 }
 
-// Markdown inline syntax removed, for measuring table cells.
-const plain = (s: string) =>
-  s
-    .replace(/\[([^\]]+)\]\([^)\s]+\)/g, '$1')
-    .replace(/(\*\*|__|~~|`)/g, '')
-
 const BULLETS = ['▸', '◦', '▪']
 const BULLET_COLORS = [C.cyan, C.purple, C.comment]
 // Bright, light tints for headings, so they stand out from body text.
@@ -381,64 +375,9 @@ function block(el: Els, b: Block): any {
       )
     case 'rule':
       return rule(el)
-    case 'table': {
-      // A rendered table: rounded frame, tinted header, soft row stripes.
-      // Column widths follow the length of their content, in whole percents.
-      const n = b.head.length
-      if (n === 0) {
-        return <Markdown text={b.text} />
-      }
-      const lens = b.head.map((label, i) =>
-        Math.max(plain(label).length, ...b.rows.map(r => plain(r[i] ?? '').length), 4),
-      )
-      const sum = lens.reduce((s, w) => s + w, 0)
-      const pct = lens.map(w => Math.max(Math.floor((w / sum) * 100), 10))
-      const scale = Math.min(1, 100 / pct.reduce((s, p) => s + p, 0))
-      const widths = pct.map(p => `${Math.floor(p * scale)}%`)
-      const justify = (i: number) =>
-        b.align[i] === 'r' ? 'flex-end' : b.align[i] === 'c' ? 'center' : 'flex-start'
-      const cell = (i: number, child: any) => (
-        <Box width={widths[i] ?? '10%'} paddingX="sm" flexDirection="row" justifyContent={justify(i)}>
-          {child}
-        </Box>
-      )
-      return (
-        // No border: the desktop app rounds every border's corners, and the
-        // person wants square ones. The header band and stripes mark the edges.
-        <Box flexDirection="column" backgroundColor="rgba(255, 255, 255, 0.02)">
-          <Box flexDirection="row" paddingY="xs" backgroundColor={tint('#8ab4ff', 0.18)}>
-            {b.head.map((label, i) =>
-              cell(
-                i,
-                <Text weight="semibold" color="#8ab4ff">
-                  {inline(el, label, '#8ab4ff')}
-                </Text>,
-              ),
-            )}
-          </Box>
-          {b.rows.map((row, r) => (
-            <Box
-              flexDirection="row"
-              paddingY="xs"
-              backgroundColor={r % 2 === 1 ? 'rgba(255, 255, 255, 0.05)' : 'transparent'}
-            >
-              {b.head.map((_, i) =>
-                cell(
-                  i,
-                  i === 0 ? (
-                    <Text weight="semibold" color={BOLD}>
-                      {inline(el, row[i] ?? '', BOLD)}
-                    </Text>
-                  ) : (
-                    <Text color={C.fg}>{inline(el, row[i] ?? '', C.fg)}</Text>
-                  ),
-                ),
-              )}
-            </Box>
-          ))}
-        </Box>
-      )
-    }
+    case 'table':
+      // The app's own table renderer.
+      return <Markdown text={b.text} />
     case 'para':
       return <Text color={C.fg}>{inline(el, b.text, C.fg)}</Text>
   }

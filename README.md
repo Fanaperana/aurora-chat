@@ -7,7 +7,7 @@ An editor-style theme for the **Claude Code desktop app**. It is a Claude Code m
 - **Custom markdown renderer** for Claude's replies
   - Headings in bright colors, one color and size per level
   - Bold text in soft gold, inline code as orange chips, cyan links
-  - Tables with a tinted header row, row stripes and widths that fit the content
+  - Tables drawn by the app's own table renderer
   - GitHub-style alerts: `> [!NOTE]`, `[!TIP]`, `[!IMPORTANT]`, `[!WARNING]`, `[!CAUTION]`
   - Task lists (`- [x]` / `- [ ]`), colored bullets and numbered lists
   - Code blocks with a header bar and the app's own syntax highlighting
@@ -17,7 +17,7 @@ An editor-style theme for the **Claude Code desktop app**. It is a Claude Code m
   - Three styles: `minimal` (default), `labels` and `pills`
   - Switch styles with the `/statusbar` command
 
-Tables wider than the reply are drawn by the app's own markdown renderer. The theme draws only on the desktop app; the terminal, VS Code and mobile keep their normal look.
+The theme draws only on the desktop app; the terminal, VS Code and mobile keep their normal look.
 
 ## Install
 
