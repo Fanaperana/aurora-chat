@@ -83,5 +83,6 @@ test('the status bar draws on desktop without being refused', async ($, on) => {
 
   expect(await ui.find({ type: 'Text', text: /^engine$/ })).toBeUndefined()
   expect(await ui.find({ type: 'Text', text: /ready/ })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: /turns/ })).toBeDefined()
   await ui.unmount()
 })

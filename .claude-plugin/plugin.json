@@ -1,6 +1,6 @@
 {
   "name": "aurora-chat",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Editor-style theme for the Claude Code desktop app: custom markdown rendering, a calm IDE palette and a status bar above the prompt",
   "author": { "name": "Fanaperana", "url": "https://github.com/Fanaperana" },
   "homepage": "https://github.com/Fanaperana/aurora-chat",

@@ -274,25 +274,45 @@ export const register: Register = on => {
       )
     }
 
-    // 'minimal': one line of text, a glowing dot for the mode, thin dividers.
+    // 'minimal': where you are on the left, the numbers on the right. Short
+    // labels and a wide gap between the two groups, so the bar keeps to one
+    // line; on a narrow window the right group drops under the left one.
+    const dot = <Text color={C.rule}> · </Text>
+    const lastText = s.lastSeconds === null ? '—' : `${s.lastSeconds.toFixed(1)}s`
     return (
-      <Box flexDirection="row" gap="sm" flexWrap="wrap" alignItems="center" paddingX="xs">
+      <Box
+        flexDirection="row"
+        justifyContent="space-between"
+        alignItems="center"
+        flexWrap="wrap"
+        columnGap="lg"
+        rowGap="xs"
+        paddingX="sm"
+        paddingY="xs"
+      >
         <Text size="caption" mono>
-          <Text color={modeColor}>●</Text>{' '}
+          <Text color={modeColor}>● </Text>
           <Text color={modeColor} weight="bold">
             {mode.toLowerCase()}
           </Text>
+          {dot}
+          <Text color={C.purple}>⎇ {base(s.cwd)}</Text>
+          {dot}
+          <Text color={C.cyan}>{s.model ?? '—'}</Text>
         </Text>
-        {items.map(([label, value, color]) => (
-          <Text size="caption" mono>
-            <Text color={C.rule}>│ </Text>
-            {label === '⎇' ? (
-              <Text color={color}>⎇ {value}</Text>
-            ) : (
-              [<Text color={C.comment}>{label} </Text>, <Text color={color}>{value}</Text>]
-            )}
+        <Text size="caption" mono>
+          <Text color={C.fg}>{s.turns}</Text>
+          <Text color={C.comment}> turns</Text>
+          {dot}
+          <Text color={C.green}>{s.tools}</Text>
+          <Text color={C.comment}> tools</Text>
+          {dot}
+          <Text color={C.orange}>
+            ↑{short(s.inTokens)} ↓{short(s.outTokens)}
           </Text>
-        ))}
+          {dot}
+          <Text color={C.comment}>⏱ {lastText}</Text>
+        </Text>
       </Box>
     )
   })
